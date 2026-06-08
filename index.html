@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Test — INI3131 Elemental COMEX — End of Term</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+:root{--primary:#4f46e5;--primary-light:#818cf8;--secondary:#7c3aed;--accent:#06b6d4;--danger:#ef4444;--success:#10b981;--warning:#f59e0b;--bg:#f1f5f9;--card:#ffffff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#06b6d4 100%);min-height:100vh;padding:30px 15px;color:var(--text);}
+.container{background:var(--card);border-radius:20px;box-shadow:0 25px 60px rgba(79,70,229,0.25);max-width:920px;margin:0 auto;overflow:hidden;}
+.header{background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:40px;text-align:center;color:white;}
+.header .logo{font-size:0.75em;letter-spacing:4px;text-transform:uppercase;opacity:0.8;margin-bottom:12px;}
+.header h1{font-family:'DM Serif Display',serif;font-size:2.2em;margin-bottom:8px;line-height:1.2;}
+.header p{opacity:0.85;font-size:1em;font-weight:300;}
+.score-pills{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap;}
+.score-pill{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:50px;padding:6px 18px;font-size:0.85em;font-weight:500;}
+.content{padding:40px;}
+.info-box{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid var(--primary);border-radius:10px;padding:18px 22px;margin-bottom:30px;font-size:0.9em;line-height:1.7;color:#1e40af;}
+.info-box ul{padding-left:18px;margin-top:6px;}
+.info-box li{margin-bottom:3px;}
+#savedBanner{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:10px;padding:12px 18px;margin-bottom:20px;font-size:0.88em;color:#065f46;display:none;align-items:center;gap:10px;}
+#savedBanner button{margin-left:auto;background:none;border:1px solid #10b981;color:#065f46;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:0.85em;white-space:nowrap;}
+.name-block{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:35px;}
+.name-block label{display:block;font-weight:600;margin-bottom:8px;color:var(--primary);font-size:0.95em;}
+.name-block input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1em;transition:border-color 0.2s;}
+.name-block input:focus{outline:none;border-color:var(--primary);}
+.progress-bar-wrap{background:#f1f5f9;border-radius:10px;padding:14px 18px;margin-bottom:28px;border:1px solid var(--border);}
+.progress-track{background:#e2e8f0;border-radius:50px;height:8px;margin-bottom:8px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:50px;width:0%;transition:width 0.4s;}
+.progress-fill.complete{background:linear-gradient(90deg,var(--success),#34d399);}
+#progressLabel{font-size:0.82em;color:var(--muted);font-weight:500;}
+.section{margin-bottom:40px;border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+.section-header{padding:18px 24px;display:flex;align-items:center;gap:12px;}
+.section-header.listening{background:linear-gradient(135deg,#ede9fe,#ddd6fe);border-bottom:1px solid #c4b5fd;}
+.section-header.reading{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-bottom:1px solid #93c5fd;}
+.section-header.writing{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-bottom:1px solid #fca5a5;}
+.section-header .icon{font-size:1.5em;}
+.section-header h2{font-family:'DM Serif Display',serif;font-size:1.4em;color:var(--text);}
+.section-header .pts{margin-left:auto;background:white;border-radius:20px;padding:4px 14px;font-size:0.82em;font-weight:600;color:var(--primary);white-space:nowrap;}
+.section-body{padding:28px;}
+.part-header{font-weight:700;font-size:1em;color:var(--secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:8px;border-bottom:2px dashed #e9d5ff;}
+.part-instructions{background:#fafafa;border-radius:8px;padding:12px 16px;font-size:0.9em;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.part-divider{border:none;border-top:2px dashed var(--border);margin:28px 0;}
+.toggle-btn{background:none;border:1px solid var(--primary-light);color:var(--primary);padding:3px 10px;border-radius:6px;font-size:0.8em;cursor:pointer;margin-top:6px;}
+.es-translation{display:none;background:#f5f3ff;border-left:3px solid var(--primary-light);padding:10px 14px;border-radius:0 8px 8px 0;font-size:0.88em;color:#5b21b6;margin-top:8px;line-height:1.6;}
+.audio-container{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid #c4b5fd;border-radius:12px;padding:18px 22px;margin-bottom:20px;}
+.audio-label{font-weight:600;color:var(--secondary);margin-bottom:10px;font-size:0.95em;}
+audio{width:100%;border-radius:8px;margin-bottom:8px;}
+.play-counter{font-size:0.82em;font-weight:600;color:var(--muted);background:white;display:inline-block;padding:4px 12px;border-radius:20px;border:1px solid var(--border);transition:color 0.2s,border-color 0.2s;}
+.play-counter.warning{color:var(--warning);border-color:var(--warning);}
+.play-counter.limit{color:var(--danger);border-color:var(--danger);}
+.dialogue-box{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:22px;line-height:2.2;font-size:0.93em;}
+.speaker{font-weight:700;color:var(--secondary);}
+.gap-input{border:none;border-bottom:2px solid var(--primary);width:130px;padding:2px 6px;font-family:'DM Sans',sans-serif;font-size:0.93em;color:var(--text);background:transparent;outline:none;text-align:center;}
+.gap-input:focus{border-bottom-color:var(--accent);}
+.gap-num{font-size:0.75em;color:var(--secondary);font-weight:700;vertical-align:super;}
+.mc-grid{display:grid;gap:20px;}
+.mc-question{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:18px;}
+.mc-question .q-text{font-weight:600;font-size:0.93em;margin-bottom:12px;color:var(--text);line-height:1.4;}
+.mc-options{display:flex;flex-direction:column;gap:8px;}
+label.mc-option{display:flex;align-items:center;gap:10px;padding:10px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.9em;transition:all 0.15s;background:white;}
+label.mc-option:hover{border-color:var(--primary-light);background:#f5f3ff;}
+label.mc-option input[type=radio]{accent-color:var(--primary);width:16px;height:16px;flex-shrink:0;}
+label.mc-option.selected{border-color:var(--primary);background:#ede9fe;}
+.matching-grid{display:flex;flex-direction:column;gap:16px;}
+.match-item{display:flex;align-items:flex-start;gap:14px;padding:14px;background:#f8fafc;border:1px solid var(--border);border-radius:10px;}
+.match-num{color:var(--secondary);font-weight:700;font-size:1em;min-width:20px;padding-top:2px;}
+.match-def{flex:1;font-size:0.91em;color:var(--text);line-height:1.5;}
+.match-select{padding:8px 12px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.88em;color:var(--text);background:white;cursor:pointer;min-width:180px;}
+.match-select:focus{outline:none;border-color:var(--primary);}
+.word-bank{background:#f0fdf4;border:1px solid #6ee7b7;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:0.88em;color:#065f46;line-height:1.7;}
+.word-bank strong{color:#047857;}
+.reading-text-box{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:22px;line-height:1.9;font-size:0.95em;}
+.reading-text-box h4{text-align:center;font-family:'DM Serif Display',serif;font-size:1.15em;margin-bottom:14px;color:var(--text);}
+.q-block{margin-bottom:20px;}
+.q-label{display:flex;gap:8px;align-items:baseline;font-size:0.93em;font-weight:600;margin-bottom:8px;color:var(--text);line-height:1.4;}
+.q-num{color:var(--secondary);min-width:22px;font-weight:700;}
+.q-pts{margin-left:auto;font-size:0.82em;font-weight:600;color:var(--muted);white-space:nowrap;background:var(--bg);padding:2px 8px;border-radius:10px;}
+.q-block textarea{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.93em;color:var(--text);resize:vertical;min-height:68px;transition:border-color 0.2s;}
+.q-block textarea:focus{outline:none;border-color:var(--primary);}
+.profile-card{background:#f8fafc;border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:22px;}
+.profile-header-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.profile-avatar{width:52px;height:52px;border-radius:50%;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#7c3aed;flex-shrink:0;}
+.profile-name{font-weight:700;font-size:1em;color:var(--text);letter-spacing:0.3px;}
+.profile-role{font-size:0.85em;color:var(--muted);margin-top:2px;}
+.profile-company{font-size:0.85em;color:var(--primary);font-weight:600;}
+.profile-legend{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.leg-past{font-size:0.78em;font-weight:600;color:#1e40af;background:#dbeafe;border-radius:4px;padding:3px 9px;}
+.leg-perf{font-size:0.78em;font-weight:600;color:#166534;background:#dcfce7;border-radius:4px;padding:3px 9px;}
+.timeline-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+.t-date-past{font-size:0.78em;font-weight:700;color:#1e40af;background:#dbeafe;border-radius:4px;padding:3px 8px;white-space:nowrap;margin-top:2px;}
+.t-date-perf{font-size:0.78em;font-weight:700;color:#166534;background:#dcfce7;border-radius:4px;padding:3px 8px;white-space:nowrap;margin-top:2px;}
+.t-text{font-size:0.88em;color:var(--text);line-height:1.5;}
+.word-counter{font-size:0.82em;font-weight:600;padding:4px 12px;border-radius:20px;margin-top:8px;display:inline-block;}
+.word-counter.red{background:#fee2e2;color:#b91c1c;}
+.word-counter.yellow{background:#fef3c7;color:#b45309;}
+.word-counter.green{background:#d1fae5;color:#065f46;}
+.gemini-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#4285F4,#34A853);color:white;border:none;padding:11px 22px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.9em;font-weight:600;cursor:pointer;margin-top:14px;transition:all 0.2s;}
+.gemini-btn:hover{opacity:0.9;transform:translateY(-1px);}
+.rubric-section{margin-top:22px;background:#fafafa;border:1px solid var(--border);border-radius:12px;padding:20px;}
+.rubric-title{font-weight:700;font-size:0.95em;color:var(--text);margin-bottom:4px;}
+.rubric-note{font-size:0.82em;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+.rubric-criterion{margin-bottom:20px;}
+.rubric-criterion-title{font-weight:600;font-size:0.9em;color:var(--secondary);margin-bottom:10px;}
+.rubric-options{display:flex;flex-direction:column;gap:7px;}
+.rubric-options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:white;transition:all 0.15s;position:relative;}
+.rubric-options label:hover{border-color:var(--primary-light);background:#f5f3ff;}
+.rubric-options input[type=radio]{accent-color:var(--primary);width:15px;height:15px;margin-top:2px;flex-shrink:0;}
+.rub-level{font-weight:700;font-size:0.85em;color:var(--text);}
+.rub-pts{background:var(--primary);color:white;border-radius:10px;padding:1px 7px;font-size:0.78em;margin-left:6px;}
+.rub-desc{font-size:0.8em;color:var(--muted);margin-top:3px;line-height:1.4;}
+.check-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--success);font-size:1.1em;display:none;}
+.rubric-options input[type=radio]:checked ~ .check-icon{display:block;}
+.rubric-subtotal{margin-top:14px;text-align:right;font-weight:700;font-size:0.95em;color:var(--primary);}
+#blankWarning{display:none;background:#fffbeb;border:2px solid var(--warning);border-radius:12px;padding:18px 22px;margin-bottom:16px;}
+#blankWarning strong{color:#92400e;display:block;margin-bottom:10px;font-size:0.95em;}
+#blankList{padding-left:0;list-style:none;margin-bottom:14px;}
+#blankList li{margin-bottom:6px;}
+.blank-link{background:none;border:1px solid var(--warning);color:#92400e;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:0.85em;font-family:'DM Sans',sans-serif;}
+.blank-link:hover{background:#fef3c7;}
+.dismiss-btn{background:var(--warning);color:white;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.88em;font-weight:600;}
+.calculate-btn{display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--success),#059669);color:white;border:none;border-radius:14px;font-family:'DM Serif Display',serif;font-size:1.2em;cursor:pointer;margin:30px 0 0;transition:all 0.2s;letter-spacing:0.5px;}
+.calculate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(16,185,129,0.35);}
+#results{display:none;margin-top:30px;}
+.results-card{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #6ee7b7;border-radius:16px;padding:30px;margin-bottom:24px;}
+.results-card h3{font-family:'DM Serif Display',serif;font-size:1.5em;color:#065f46;margin-bottom:20px;text-align:center;}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #a7f3d0;font-size:0.95em;}
+.score-row:last-of-type{border-bottom:none;font-weight:700;font-size:1.05em;}
+.grade-display{text-align:center;margin-top:20px;padding:20px;background:white;border-radius:12px;border:2px solid #10b981;}
+.grade-display .grade-number{font-family:'DM Serif Display',serif;font-size:3.5em;color:var(--primary);line-height:1;}
+.grade-display .grade-label{color:var(--muted);font-size:0.85em;margin-top:4px;}
+.grade-display .grade-msg{font-size:0.9em;margin-top:8px;font-weight:600;color:var(--text);}
+.gemini-block{background:#fffbeb;border:2px solid var(--warning);border-radius:16px;padding:24px;margin-bottom:24px;}
+.gemini-block h4{font-family:'DM Serif Display',serif;font-size:1.2em;color:#92400e;margin-bottom:6px;}
+.gemini-block p{font-size:0.88em;color:#78350f;margin-bottom:16px;line-height:1.5;}
+.gemini-score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:0.9em;}
+.gemini-score-row label{flex:1;color:var(--text);}
+.gemini-score-row input[type=number]{width:70px;padding:6px 10px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9em;text-align:center;}
+.update-btn{display:block;width:100%;padding:13px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;border-radius:12px;font-family:'DM Serif Display',serif;font-size:1.1em;cursor:pointer;margin-top:18px;transition:all 0.2s;}
+.update-btn:hover{transform:translateY(-1px);}
+.summary-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.summary-card{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;}
+.summary-card-title{font-size:0.82em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.summary-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
+.dot{width:14px;height:14px;border-radius:50%;}
+.dot.correct{background:var(--success);}
+.dot.incorrect{background:var(--danger);}
+.dot.neutral{background:#94a3b8;}
+.section-feedback-msg{border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:0.88em;line-height:1.5;}
+.section-feedback-msg.great{background:#f0fdf4;border:1px solid #6ee7b7;color:#065f46;}
+.section-feedback-msg.good{background:#fffbeb;border:1px solid #fcd34d;color:#92400e;}
+.section-feedback-msg.needswork{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;}
+.section-feedback-msg strong{display:block;margin-bottom:6px;}
+.msg-tips{padding-left:18px;margin-top:6px;}
+.msg-tips li{margin-bottom:4px;}
+.filter-tabs{display:none;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.filter-tab{padding:7px 16px;border:2px solid var(--border);border-radius:50px;background:white;font-family:'DM Sans',sans-serif;font-size:0.83em;font-weight:600;cursor:pointer;transition:all 0.15s;color:var(--muted);}
+.filter-tab.active{border-color:var(--primary);color:var(--primary);background:#ede9fe;}
+.feedback-part{margin-bottom:20px;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.feedback-part-header{padding:12px 18px;font-weight:700;font-size:0.9em;display:flex;align-items:center;gap:8px;}
+.feedback-part-header.listening{background:#ede9fe;color:var(--secondary);}
+.feedback-part-header.reading{background:#dbeafe;color:#1d4ed8;}
+.feedback-part-header.writing{background:#fff1f2;color:#be185d;}
+.feedback-item{padding:14px 18px;border-bottom:1px solid var(--border);font-size:0.88em;line-height:1.5;}
+.feedback-item:last-child{border-bottom:none;}
+.feedback-item .fi-label{font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.feedback-item .student-ans{color:var(--muted);}
+.feedback-item .correct-ans{color:var(--success);font-weight:600;}
+.feedback-item .explanation{margin-top:5px;color:#64748b;font-style:italic;}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.8em;font-weight:700;}
+.tag.correct-tag{background:#dcfce7;color:#15803d;}
+.tag.incorrect-tag{background:#fee2e2;color:#b91c1c;}
+.tag.info-tag{background:#dbeafe;color:#1d4ed8;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+.modal-overlay.active{display:flex;}
+.modal{background:white;border-radius:16px;padding:36px 32px;max-width:440px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(79,70,229,0.25);}
+.modal-icon{font-size:48px;margin-bottom:14px;}
+.modal h3{font-family:'DM Serif Display',serif;font-size:1.5em;color:var(--text);margin-bottom:12px;}
+.modal p{font-size:0.9em;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.modal ol{text-align:left;padding-left:20px;font-size:0.9em;color:var(--text);margin-bottom:20px;line-height:1.8;}
+.modal-btns{display:flex;gap:12px;}
+.modal-btn{flex:1;padding:12px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.93em;font-weight:600;cursor:pointer;border:none;transition:opacity 0.15s;}
+.modal-btn:hover{opacity:0.88;}
+.modal-btn.cancel{background:#f1f5f9;color:var(--muted);}
+.modal-btn.go{background:linear-gradient(135deg,#4285F4,#34A853);color:white;}
+#saveToast{position:fixed;bottom:24px;right:24px;background:var(--success);color:white;padding:10px 20px;border-radius:50px;font-size:0.85em;font-weight:600;opacity:0;transform:translateY(8px);transition:all 0.3s;pointer-events:none;z-index:1000;}
+#saveToast.show{opacity:1;transform:translateY(0);}
+.inline-warning{color:#b45309;background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;padding:6px 12px;font-size:0.83em;margin-top:8px;display:none;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+@media(max-width:768px){.content{padding:20px;}.header{padding:28px 20px;}.header h1{font-size:1.6em;}.section-body{padding:18px;}.summary-cards{grid-template-columns:1fr;}.match-item{flex-direction:column;}.match-select{min-width:100%;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">DuocUC — INI3131</div>
+  <h1>Inglés Elemental Intensivo COMEX</h1>
+  <p>End of Term — Mock Test</p>
+  <div class="score-pills">
+    <span class="score-pill">📝 36 puntos</span>
+    <span class="score-pill">⏱️ 60 minutos</span>
+    <span class="score-pill">📚 Files 7 – 12</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- AUTOSAVE BANNER -->
+<div id="savedBanner">
+  🗑️ Tienes respuestas guardadas desde una sesión anterior.
+  <button onclick="clearAllAnswers()">Borrar y empezar de nuevo</button>
+</div>
+
+<!-- STUDENT NAME -->
+<div class="name-block">
+  <label for="studentName">Nombre completo</label>
+  <input type="text" id="studentName" placeholder="Escribe tu nombre aquí..." oninput="updateSignature();saveAll()">
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="progressLabel">0 de 28 preguntas respondidas</div>
+</div>
+
+<!-- INFO BOX -->
+<div class="info-box">
+  <strong>Instrucciones generales / General Directions</strong>
+  <ul>
+    <li>You have 60 minutes to complete the evaluation.</li>
+    <li>Audio files will be played twice.</li>
+    <li>Read the questions before you answer them.</li>
+    <li>The evaluation must be completed INDIVIDUALLY.</li>
+  </ul>
+  <button class="toggle-btn" onclick="toggleEs('es-directions')">🌐 Ver en español</button>
+  <div class="es-translation" id="es-directions">
+    <ul>
+      <li>Tienes 60 minutos para completar la evaluación.</li>
+      <li>Los archivos de audio se reproducirán dos veces.</li>
+      <li>Lee las preguntas antes de responderlas.</li>
+      <li>La evaluación debe completarse de forma INDIVIDUAL.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- LISTENING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header listening">
+    <span class="icon">🎧</span>
+    <h2>I. Listening</h2>
+    <span class="pts">12 pts</span>
+  </div>
+  <div class="section-body">
+
+    <!-- LISTENING A -->
+    <div class="part-header">Part A — Gap Fill</div>
+    <div class="part-instructions">
+      Remember to read the text before listening. This will help you identify the information you need.
+      <br>
+      <strong>A.</strong> Listen to a conversation between Andrea and Miguel. Andrea is Miguel's team leader and she is giving him feedback after his first month at the company. Fill in the gaps with the correct words. <strong>(6 points, 1 each)</strong>
+      <br>
+      <button class="toggle-btn" onclick="toggleEs('es-la')">🌐 Ver en español</button>
+      <div class="es-translation" id="es-la">
+        Escucha la conversación entre Andrea y Miguel. Andrea es la líder de equipo de Miguel y le entrega retroalimentación después de su primer mes en la empresa. Completa los espacios con las palabras correctas.
+      </div>
+    </div>
+
+    <div class="audio-container">
+      <div class="audio-label">🔊 Audio — Listening A: Andrea &amp; Miguel</div>
+      <audio id="audioA" preload="metadata" playsinline controls onplay="trackPlay('audioA')">
+        <source src="https://github.com/Moncholate/INI3131-End-of-Term-Written-Mock-Test/raw/refs/heads/main/Listening%20A.mp3" type="audio/mpeg">
+      </audio>
+      <div class="play-counter" id="counter_audioA">Reproducciones: 0 / 2</div>
+    </div>
+
+    <div class="dialogue-box">
+      <p><span class="speaker">Andrea:</span> Hello, Miguel. Thank you for meeting me today. Tell me, how do you feel about your
+      <input class="gap-input" type="text" id="la1" placeholder="(1)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(1)</span>
+      at Andean Freight Solutions so far?</p>
+
+      <p><span class="speaker">Miguel:</span> Hi, Andrea. Thank you for this conversation. I feel it was a fantastic start! With the team in the export department, I
+      <input class="gap-input" type="text" id="la2" placeholder="(2)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(2)</span>
+      many important procedures very quickly. And, of course, there are things I still need to improve.</p>
+
+      <p><span class="speaker">Andrea:</span> I agree. This was a very productive first month for you. Some of your best moments are that, this month, you prepared all the export documentation without any mistakes. That showed great attention to detail.<br>
+      You also
+      <input class="gap-input" type="text" id="la3" placeholder="(3)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(3)</span>
+      very well with our customs brokers. This has made our clearance process much faster.<br>
+      As a new team member, you have
+      <input class="gap-input" type="text" id="la4" placeholder="(4)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(4)</span>
+      all your training modules on time. And you have helped your colleagues with some complex shipments. That is all very impressive.</p>
+
+      <p><span class="speaker">Miguel:</span> Thank you so much, Andrea. And what about areas where I can improve?</p>
+
+      <p><span class="speaker">Andrea:</span> Well, there are a few things. This month, you
+      <input class="gap-input" type="text" id="la5" placeholder="(5)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(5)</span>
+      reported two urgent delays to the team. That caused some issues with our clients.<br>
+      Also, you have sent emails to suppliers without supervisor approval, and you haven't given any explanation. I need you to be more careful about this.</p>
+
+      <p><span class="speaker">Miguel:</span> Certainly, Andrea. You are right. I haven't
+      <input class="gap-input" type="text" id="la6" placeholder="(6)" oninput="saveAll()" autocomplete="off">
+      <span class="gap-num">(6)</span>
+      very careful with those procedures. Those things will not happen again. You can count on me.</p>
+
+      <p><span class="speaker">Andrea:</span> I am sure of it. Thanks for your time, Miguel, and see you at the team lunch on Friday!</p>
+    </div>
+
+    <hr class="part-divider">
+
+    <!-- LISTENING B -->
+    <div class="part-header">Part B — Multiple Choice</div>
+    <div class="part-instructions">
+      <strong>B.</strong> Listen to Pacific Trade Terminal's annual results presentation and select the correct option. <strong>(6 points, 1 each)</strong>
+      <br>
+      <button class="toggle-btn" onclick="toggleEs('es-lb')">🌐 Ver en español</button>
+      <div class="es-translation" id="es-lb">
+        Escucha la presentación de resultados anuales de Pacific Trade Terminal y selecciona la opción correcta.
+      </div>
+    </div>
+
+    <div class="audio-container">
+      <div class="audio-label">🔊 Audio — Listening B: Pacific Trade Terminal</div>
+      <audio id="audioB" preload="metadata" playsinline controls onplay="trackPlay('audioB')">
+        <source src="https://github.com/Moncholate/INI3131-End-of-Term-Written-Mock-Test/raw/refs/heads/main/Listening%20B.mp3" type="audio/mpeg">
+      </audio>
+      <div class="play-counter" id="counter_audioB">Reproducciones: 0 / 2</div>
+    </div>
+
+    <div class="mc-grid">
+
+      <div class="mc-question">
+        <div class="q-text">1. How much cargo did the terminal process last year?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb1a"><input type="radio" name="lb1" id="lb1a" value="A" onchange="saveAll()"> a) 180,000 tons</label>
+          <label class="mc-option" for="lb1b"><input type="radio" name="lb1" id="lb1b" value="B" onchange="saveAll()"> b) 240,000 tons</label>
+          <label class="mc-option" for="lb1c"><input type="radio" name="lb1" id="lb1c" value="C" onchange="saveAll()"> c) 420,000 tons</label>
+        </div>
+      </div>
+
+      <div class="mc-question">
+        <div class="q-text">2. How many vessels arrived at the terminal this year?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb2a"><input type="radio" name="lb2" id="lb2a" value="A" onchange="saveAll()"> a) 420 vessels</label>
+          <label class="mc-option" for="lb2b"><input type="radio" name="lb2" id="lb2b" value="B" onchange="saveAll()"> b) 580 vessels</label>
+          <label class="mc-option" for="lb2c"><input type="radio" name="lb2" id="lb2c" value="C" onchange="saveAll()"> c) 180 vessels</label>
+        </div>
+      </div>
+
+      <div class="mc-question">
+        <div class="q-text">3. What was the size of the terminal's storage area last year?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb3a"><input type="radio" name="lb3" id="lb3a" value="A" onchange="saveAll()"> a) 4,500 square meters</label>
+          <label class="mc-option" for="lb3b"><input type="radio" name="lb3" id="lb3b" value="B" onchange="saveAll()"> b) 3,200 square meters</label>
+          <label class="mc-option" for="lb3c"><input type="radio" name="lb3" id="lb3c" value="C" onchange="saveAll()"> c) 2,800 square meters</label>
+        </div>
+      </div>
+
+      <div class="mc-question">
+        <div class="q-text">4. What percentage of shipments were delivered on time this year?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb4a"><input type="radio" name="lb4" id="lb4a" value="A" onchange="saveAll()"> a) 85%</label>
+          <label class="mc-option" for="lb4b"><input type="radio" name="lb4" id="lb4b" value="B" onchange="saveAll()"> b) 60%</label>
+          <label class="mc-option" for="lb4c"><input type="radio" name="lb4" id="lb4c" value="C" onchange="saveAll()"> c) 72%</label>
+        </div>
+      </div>
+
+      <div class="mc-question">
+        <div class="q-text">5. What percentage of cargo came from international trade agreements this year?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb5a"><input type="radio" name="lb5" id="lb5a" value="A" onchange="saveAll()"> a) 35%</label>
+          <label class="mc-option" for="lb5b"><input type="radio" name="lb5" id="lb5b" value="B" onchange="saveAll()"> b) 80%</label>
+          <label class="mc-option" for="lb5c"><input type="radio" name="lb5" id="lb5c" value="C" onchange="saveAll()"> c) 65%</label>
+        </div>
+      </div>
+
+      <div class="mc-question">
+        <div class="q-text">6. Which of the following is NOT mentioned as a terminal achievement?</div>
+        <div class="mc-options">
+          <label class="mc-option" for="lb6a"><input type="radio" name="lb6" id="lb6a" value="A" onchange="saveAll()"> a) More cargo processed</label>
+          <label class="mc-option" for="lb6b"><input type="radio" name="lb6" id="lb6b" value="B" onchange="saveAll()"> b) Reducing port fees</label>
+          <label class="mc-option" for="lb6c"><input type="radio" name="lb6" id="lb6c" value="C" onchange="saveAll()"> c) Expanded storage area</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- READING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header reading">
+    <span class="icon">📖</span>
+    <h2>II. Reading</h2>
+    <span class="pts">12 pts</span>
+  </div>
+  <div class="section-body">
+
+    <!-- READING A -->
+    <div class="part-header">Part A — Vocabulary Matching</div>
+    <div class="part-instructions">
+      <strong>A.</strong> Match the words and definitions. There is 1 extra word. <strong>(6 points, 1 each)</strong>
+      <br>
+      <button class="toggle-btn" onclick="toggleEs('es-ra')">🌐 Ver en español</button>
+      <div class="es-translation" id="es-ra">
+        Relaciona las palabras con sus definiciones. Hay 1 palabra extra.
+      </div>
+    </div>
+
+    <div class="word-bank">
+      <strong>Word bank:</strong> FINANCIAL GROWTH &nbsp;·&nbsp; FIRST QUARTER &nbsp;·&nbsp; FLAT RACK CONTAINER &nbsp;·&nbsp; LITHIUM &nbsp;·&nbsp; PERISHABLE GOODS &nbsp;·&nbsp; REEFER CONTAINER &nbsp;·&nbsp; SALTPETER
+    </div>
+
+    <div class="matching-grid">
+      <div class="match-item">
+        <span class="match-num">1.</span>
+        <span class="match-def">A cold container designed to transport food, medicine, or other products that require temperature control during shipping.</span>
+        <select class="match-select" id="ra1" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+      <div class="match-item">
+        <span class="match-num">2.</span>
+        <span class="match-def">A lightweight metal extracted from salt flats, widely used in the production of batteries for electric vehicles.</span>
+        <select class="match-select" id="ra2" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+      <div class="match-item">
+        <span class="match-num">3.</span>
+        <span class="match-def">A container without sides or a roof, designed for transporting heavy or oversized cargo such as machinery or vehicles.</span>
+        <select class="match-select" id="ra3" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+      <div class="match-item">
+        <span class="match-num">4.</span>
+        <span class="match-def">An increase in the revenue or economic value of a company over a period of time.</span>
+        <select class="match-select" id="ra4" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+      <div class="match-item">
+        <span class="match-num">5.</span>
+        <span class="match-def">A natural mineral compound historically extracted and exported from Chile, used in the production of fertilizers and explosives.</span>
+        <select class="match-select" id="ra5" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+      <div class="match-item">
+        <span class="match-num">6.</span>
+        <span class="match-def">Products that expire or spoil quickly and require special storage or temperature conditions during transport.</span>
+        <select class="match-select" id="ra6" onchange="saveAll()">
+          <option value="">— Selecciona —</option>
+          <option>FINANCIAL GROWTH</option>
+          <option>FIRST QUARTER</option>
+          <option>FLAT RACK CONTAINER</option>
+          <option>LITHIUM</option>
+          <option>PERISHABLE GOODS</option>
+          <option>REEFER CONTAINER</option>
+          <option>SALTPETER</option>
+        </select>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+
+    <!-- READING B -->
+    <div class="part-header">Part B — Reading Comprehension</div>
+    <div class="part-instructions">
+      <strong>B.</strong> Read the text about Camila Rojas. Answer the questions using complete ideas from the text. Some questions need one idea and others need two ideas. <strong>(6 points)</strong>
+      <br>
+      <button class="toggle-btn" onclick="toggleEs('es-rb')">🌐 Ver en español</button>
+      <div class="es-translation" id="es-rb">
+        Lee el texto sobre Camila Rojas. Responde las preguntas usando ideas completas del texto. Algunas preguntas requieren una idea y otras requieren dos ideas.
+      </div>
+    </div>
+
+    <div class="reading-text-box">
+      <h4>Employee Spotlight: Camila Rojas, Senior Logistics Coordinator</h4>
+      <p>Camila Rojas has worked in the logistics industry for seven years. She currently works as a senior coordinator at Pacific Trade Terminal, where she manages the documentation department. She has organized shipments for more than thirty international clients, and she has won the "Employee of the Year" award twice.</p>
+      <br>
+      <p>In her current role, Camila supervises a team of five employees and coordinates with customs brokers on a daily basis. She has always been passionate about sustainable logistics, and she has recently completed a project to reduce the terminal's use of paper documentation.</p>
+      <br>
+      <p>Outside of work, Camila would like to improve her public speaking skills. She believes that strong communication is essential for a leader in the logistics industry.</p>
+      <br>
+      <p>Camila also has some exciting professional plans. Next month, she is going to attend an international trade fair in Singapore to represent Pacific Trade Terminal. She is also going to start a certification course in supply chain management at a local university.</p>
+      <br>
+      <p><em>"I have learned so much in this job," says Camila. "The logistics industry is always changing, and I am going to keep growing every year."</em></p>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">1.</span> How long has Camila worked in the logistics industry? <span class="q-pts">1 pt</span></div>
+      <textarea id="rb_a1" rows="2" placeholder="Write your answer here..." oninput="saveAll()"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">2.</span> What has Camila recently completed at the terminal? <span class="q-pts">1 pt</span></div>
+      <textarea id="rb_a2" rows="2" placeholder="Write your answer here..." oninput="saveAll()"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">3.</span> What skill does Camila consider essential for a logistics leader? <span class="q-pts">1 pt</span></div>
+      <textarea id="rb_a3" rows="2" placeholder="Write your answer here..." oninput="saveAll()"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">4.</span> Where is Camila going to represent Pacific Trade Terminal next month? <span class="q-pts">1 pt</span></div>
+      <textarea id="rb_a4" rows="2" placeholder="Write your answer here..." oninput="saveAll()"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">5.</span> What two professional plans does Camila have for the future? Provide 2 ideas. <span class="q-pts">2 pts</span></div>
+      <textarea id="rb_a5" rows="3" placeholder="Idea 1:&#10;Idea 2:" oninput="saveAll()"></textarea>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- WRITING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header writing">
+    <span class="icon">✍️</span>
+    <h2>III. Writing</h2>
+    <span class="pts">12 pts</span>
+  </div>
+  <div class="section-body">
+
+    <div class="part-instructions">
+      <strong>A.</strong> You are head of business at Apex Cargo Solutions. Valentina Torres works at your company and is applying for a promotion. Read her profile and write a recommendation letter for her. <strong>(12 points)</strong>
+      <br><br>
+      <strong>Instructions:</strong> Use simple past and present perfect. Use at least 6 words from the vocabulary covered in class. Write at least 60 words. Use original ideas ONLY — do not copy ideas from this test.
+      <br>
+      <button class="toggle-btn" onclick="toggleEs('es-wr')">🌐 Ver en español</button>
+      <div class="es-translation" id="es-wr">
+        Eres jefe de negocios en Apex Cargo Solutions. Valentina Torres trabaja en tu empresa y está postulando a una promoción. Lee su perfil y escribe una carta de recomendación para ella.<br>
+        <strong>Instrucciones:</strong> Usa pasado simple y presente perfecto. Usa al menos 6 palabras del vocabulario visto en clase. Escribe al menos 60 palabras. Usa ideas originales — no copies ideas de este test.
+      </div>
+    </div>
+
+    <!-- PROFILE CARD -->
+    <div class="profile-card">
+      <div class="profile-header-row">
+        <div class="profile-avatar">VT</div>
+        <div>
+          <div class="profile-name">VALENTINA TORRES</div>
+          <div class="profile-role">Export Coordinator</div>
+          <div class="profile-company">Apex Cargo Solutions</div>
+        </div>
+      </div>
+      <div class="profile-legend">
+        <span class="leg-past">📅 FECHA → simple past</span>
+        <span class="leg-perf">🔄 SIN FECHA → present perfect</span>
+      </div>
+      <div>
+        <div class="timeline-item">
+          <span class="t-date-past">MARCH 2021</span>
+          <span class="t-text">Join Apex Cargo Solutions and organize the first international shipment of perishable goods to European markets.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="t-date-past">JUNE 2022</span>
+          <span class="t-text">Coordinate a flat rack container operation for machinery exports and complete the project on schedule and under budget.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="t-date-past">NOVEMBER 2023</span>
+          <span class="t-text">Receive the "Best Employee of the Year" award for meticulous work in export documentation.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="t-date-perf">RECENTLY</span>
+          <span class="t-text">Implement a cost-effective and sustainable supply chain process that reduce operational costs by 20%.</span>
+        </div>
+        <div class="timeline-item">
+          <span class="t-date-perf">THIS YEAR</span>
+          <span class="t-text">Complete a training course in reefer container operations and cold chain logistics.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LETTER FRAME -->
+    <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:18px;">
+      <p style="font-size:0.93em;color:var(--muted);margin-bottom:14px;"><strong>RECOMMENDATION LETTER</strong></p>
+      <p style="font-size:0.93em;margin-bottom:14px;">As the head of Apex Cargo Solutions, I personally recommend Valentina Torres for the following reasons:</p>
+      <textarea id="writingAnswer" rows="8" placeholder="Write your recommendation letter here..." oninput="updateWordCount();saveAll()" style="width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.93em;resize:vertical;transition:border-color 0.2s;"></textarea>
+      <div id="wordCounter" class="word-counter red">Palabras: 0 / mínimo 60</div>
+      <p style="font-size:0.93em;margin-top:14px;">In conclusion, Valentina Torres is an excellent choice for the position.</p>
+      <p style="font-size:0.93em;margin-top:8px;">Best, <span id="signatureName" style="font-weight:600;color:var(--primary);">_________________________</span> (your name).</p>
+    </div>
+
+    <!-- GEMINI WRITING BUTTON -->
+    <div style="text-align:center;">
+      <button class="gemini-btn" onclick="copyForGemini('writing')">
+        🤖 Copiar prompt de evaluación Gemini
+      </button>
+      <div class="inline-warning" id="warnWriting">⚠️ Escribe tu carta antes de enviar a Gemini.</div>
+    </div>
+
+    <!-- RUBRIC -->
+    <div class="rubric-section">
+      <div class="rubric-title">Rúbrica de Writing</div>
+      <div class="rubric-note">Completa esta rúbrica usando la evaluación por criterio que te entregó Gemini. Selecciona el nivel que Gemini indicó para cada criterio.</div>
+
+      <!-- Criterion 1 -->
+      <div class="rubric-criterion">
+        <div class="rubric-criterion-title">1. Coherencia y extensión <span style="color:var(--muted);font-weight:400;">(máx. 4 pts)</span></div>
+        <div class="rubric-options">
+          <label><input type="radio" name="rub1" value="4" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Totalmente Logrado <span class="rub-pts">4 pts</span></div><div class="rub-desc">≥60 palabras, todas las ideas requeridas, coherente con el estímulo.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub1" value="3.2" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Logrado <span class="rub-pts">3.2 pts</span></div><div class="rub-desc">50–59 palabras, todas las ideas requeridas, coherente.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub1" value="2.4" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Parcialmente Logrado <span class="rub-pts">2.4 pts</span></div><div class="rub-desc">30–49 palabras, cobertura parcial de los temas requeridos.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub1" value="1.2" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Insuficientemente Logrado <span class="rub-pts">1.2 pts</span></div><div class="rub-desc">15–29 palabras, baja cobertura de los temas requeridos.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub1" value="0" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">No Logrado <span class="rub-pts">0 pts</span></div><div class="rub-desc">&lt;15 palabras o incoherente con el estímulo.</div></div><span class="check-icon">✓</span></label>
+        </div>
+      </div>
+
+      <!-- Criterion 2 -->
+      <div class="rubric-criterion">
+        <div class="rubric-criterion-title">2. Vocabulario <span style="color:var(--muted);font-weight:400;">(máx. 3 pts)</span></div>
+        <div class="rubric-options">
+          <label><input type="radio" name="rub2" value="3" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Totalmente Logrado <span class="rub-pts">3 pts</span></div><div class="rub-desc">≥6 palabras del vocabulario aprendido usadas correctamente.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub2" value="2.4" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Logrado <span class="rub-pts">2.4 pts</span></div><div class="rub-desc">5 palabras del vocabulario usadas correctamente.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub2" value="1.8" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Parcialmente Logrado <span class="rub-pts">1.8 pts</span></div><div class="rub-desc">4 palabras del vocabulario usadas correctamente.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub2" value="0.9" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Insuficientemente Logrado <span class="rub-pts">0.9 pts</span></div><div class="rub-desc">3 palabras del vocabulario usadas correctamente.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub2" value="0" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">No Logrado <span class="rub-pts">0 pts</span></div><div class="rub-desc">≤2 palabras o uso incorrecto del vocabulario.</div></div><span class="check-icon">✓</span></label>
+        </div>
+      </div>
+
+      <!-- Criterion 3 -->
+      <div class="rubric-criterion">
+        <div class="rubric-criterion-title">3. Gramática <span style="color:var(--muted);font-weight:400;">(máx. 3 pts)</span></div>
+        <div class="rubric-options">
+          <label><input type="radio" name="rub3" value="3" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Totalmente Logrado <span class="rub-pts">3 pts</span></div><div class="rub-desc">Máximo 1 error gramatical sin impacto en la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub3" value="2.4" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Logrado <span class="rub-pts">2.4 pts</span></div><div class="rub-desc">2–3 errores sin impacto en la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub3" value="1.8" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Parcialmente Logrado <span class="rub-pts">1.8 pts</span></div><div class="rub-desc">4–5 errores que dificultan parcialmente la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub3" value="0.9" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Insuficientemente Logrado <span class="rub-pts">0.9 pts</span></div><div class="rub-desc">6–7 errores que dificultan significativamente la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub3" value="0" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">No Logrado <span class="rub-pts">0 pts</span></div><div class="rub-desc">≥8 errores que impiden la comprensión.</div></div><span class="check-icon">✓</span></label>
+        </div>
+      </div>
+
+      <!-- Criterion 4 -->
+      <div class="rubric-criterion">
+        <div class="rubric-criterion-title">4. Ortografía <span style="color:var(--muted);font-weight:400;">(máx. 2 pts)</span></div>
+        <div class="rubric-options">
+          <label><input type="radio" name="rub4" value="2" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Totalmente Logrado <span class="rub-pts">2 pts</span></div><div class="rub-desc">Máximo 2 errores ortográficos sin interferir con la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub4" value="1.6" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Logrado <span class="rub-pts">1.6 pts</span></div><div class="rub-desc">3–4 errores ortográficos; el mensaje sigue siendo comprensible.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub4" value="1.2" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Parcialmente Logrado <span class="rub-pts">1.2 pts</span></div><div class="rub-desc">5–6 errores ortográficos que afectan parcialmente el mensaje.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub4" value="0.6" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">Insuficientemente Logrado <span class="rub-pts">0.6 pts</span></div><div class="rub-desc">7–8 errores ortográficos que dificultan significativamente la comprensión.</div></div><span class="check-icon">✓</span></label>
+          <label><input type="radio" name="rub4" value="0" onchange="updateRubric();saveAll()">
+            <div><div class="rub-level">No Logrado <span class="rub-pts">0 pts</span></div><div class="rub-desc">≥9 errores ortográficos que impiden la comprensión.</div></div><span class="check-icon">✓</span></label>
+        </div>
+      </div>
+
+      <div class="rubric-subtotal">Puntaje Writing: <span id="writingSubtotal">0</span> / 12 pts</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLANK WARNING + CALCULATE -->
+<div id="blankWarning">
+  <strong>⚠️ Hay preguntas sin responder:</strong>
+  <ul id="blankList"></ul>
+  <button class="dismiss-btn" onclick="document.getElementById('blankWarning').style.display='none';calculateFinalGrade()">Continuar de todos modos →</button>
+</div>
+<button class="calculate-btn" onclick="checkBlanksAndCalculate()">📊 Calcular mi nota</button>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- RESULTS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="results">
+
+  <!-- SCORE CARD -->
+  <div class="results-card">
+    <h3 id="resultsTitle">📊 Resultados del Mock Test</h3>
+    <div class="score-row"><span>Listening</span><span id="listeningDisplay">—</span></div>
+    <div class="score-row"><span>Reading</span><span id="readingDisplay">—</span></div>
+    <div class="score-row"><span>Writing</span><span id="writingDisplay">—</span></div>
+    <div class="score-row"><span><strong>Total</strong></span><span id="totalDisplay">—</span></div>
+    <div class="grade-display" id="gradeDisplay">
+      <div style="font-size:2.5em;margin-bottom:8px">⏳</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.3em;color:#d97706">Nota pendiente</div>
+    </div>
+  </div>
+
+  <!-- GEMINI BLOCK -->
+  <div class="gemini-block" id="geminiBlock">
+    <h4>🤖 Revisión con Gemini — Reading B</h4>
+    <p>Haz clic en el botón para copiar el prompt con tus respuestas, pégalo en Gemini y luego ingresa el puntaje sugerido para cada pregunta.</p>
+    <div style="text-align:center;margin-bottom:18px;">
+      <button class="gemini-btn" onclick="copyForGemini('readingB')">🤖 Copiar prompt — Reading B</button>
+      <div class="inline-warning" id="warnReadingB"></div>
+    </div>
+    <div class="gemini-score-row"><label>P1 — How long has Camila worked? (máx. 1 pt)</label><input type="number" id="rb_q1" min="0" max="1" step="0.5" value="" placeholder="0–1" onchange="saveAll()"></div>
+    <div class="gemini-score-row"><label>P2 — What has Camila recently completed? (máx. 1 pt)</label><input type="number" id="rb_q2" min="0" max="1" step="0.5" value="" placeholder="0–1" onchange="saveAll()"></div>
+    <div class="gemini-score-row"><label>P3 — What skill does she consider essential? (máx. 1 pt)</label><input type="number" id="rb_q3" min="0" max="1" step="0.5" value="" placeholder="0–1" onchange="saveAll()"></div>
+    <div class="gemini-score-row"><label>P4 — Where is she going to represent PTT? (máx. 1 pt)</label><input type="number" id="rb_q4" min="0" max="1" step="0.5" value="" placeholder="0–1" onchange="saveAll()"></div>
+    <div class="gemini-score-row"><label>P5 — Two professional plans (máx. 2 pts)</label><input type="number" id="rb_q5" min="0" max="2" step="0.5" value="" placeholder="0–2" onchange="saveAll()"></div>
+    <button class="update-btn" onclick="updateWithGeminiScores()">✅ Actualizar nota con puntajes Gemini</button>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <div class="summary-card-title">🎧 Listening</div>
+      <div class="summary-dots" id="listeningDots"></div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-card-title">📖 Reading A</div>
+      <div class="summary-dots" id="readingDots"></div>
+    </div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" onclick="filterFeedback('all',event)">Todas</button>
+    <button class="filter-tab" onclick="filterFeedback('listening',event)">🎧 Listening</button>
+    <button class="filter-tab" onclick="filterFeedback('reading',event)">📖 Reading</button>
+    <button class="filter-tab" onclick="filterFeedback('writing',event)">✍️ Writing</button>
+    <button class="filter-tab" onclick="filterFeedback('correct',event)">✓ Correctas</button>
+    <button class="filter-tab" onclick="filterFeedback('incorrect',event)">✗ Incorrectas</button>
+  </div>
+
+  <!-- FEEDBACK CONTAINER -->
+  <div id="feedbackContainer"></div>
+
+</div>
+
+</div><!-- /content -->
+</div><!-- /container -->
+
+<!-- TOAST -->
+<div id="saveToast">✓ Respuestas guardadas</div>
+
+<!-- GEMINI MODAL -->
+<div class="modal-overlay" id="geminiModal">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h3>¡Texto copiado!</h3>
+    <p>El prompt ya está en tu portapapeles. Sigue estos pasos:</p>
+    <ol>
+      <li>Haz clic en "Ir a Gemini" para abrir el chat.</li>
+      <li>Pega el texto con <strong>Ctrl+V</strong> (o ⌘+V en Mac).</li>
+      <li>Copia el puntaje que Gemini te indique e ingrésalo en la rúbrica.</li>
+    </ol>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeGeminiModal()">Cerrar</button>
+      <button class="modal-btn go" onclick="closeGeminiModal();window.open('https://gemini.google.com','_blank')">Ir a Gemini →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SAVE_KEY = 'mocktest_ini3131_eot_v1';
+const TOTAL_QUESTIONS = 28;
+const laKeys = ['performance','learned','worked','completed',"haven't",'been'];
+const lbKeys = ['A','B','C','A','C','B'];
+const raKeys = ['REEFER CONTAINER','LITHIUM','FLAT RACK CONTAINER','FINANCIAL GROWTH','SALTPETER','PERISHABLE GOODS'];
+const lbOptions = {
+  lb1:{A:'180,000 tons',B:'240,000 tons',C:'420,000 tons'},
+  lb2:{A:'420 vessels',B:'580 vessels',C:'180 vessels'},
+  lb3:{A:'4,500 square meters',B:'3,200 square meters',C:'2,800 square meters'},
+  lb4:{A:'85%',B:'60%',C:'72%'},
+  lb5:{A:'35%',B:'80%',C:'65%'},
+  lb6:{A:'More cargo processed',B:'Reducing port fees',C:'Expanded storage area'}
+};
+let geminiReviewDone = false;
+let saveTimer = null;
+
+// ── SIGNATURE
+function updateSignature() {
+  const name = g('studentName').trim();
+  const el = document.getElementById('signatureName');
+  if (el) el.textContent = name || '_________________________';
+}
+
+// ── AUDIO COUNTER (NNR Rule 8: never disable playback)
+const playCounts = {};
+function trackPlay(audioId) {
+  if (!playCounts[audioId]) playCounts[audioId] = 0;
+  playCounts[audioId]++;
+  const counter = document.getElementById('counter_' + audioId);
+  const count = playCounts[audioId];
+  if (count >= 2) {
+    counter.textContent = '⚠️ Límite de 2 reproducciones alcanzado — el audio sigue disponible.';
+    counter.className = 'play-counter limit';
+  } else if (count === 1) {
+    counter.textContent = 'Reproducciones: 1 / 2 — 1 reproducción restante';
+    counter.className = 'play-counter warning';
+  }
+}
+
+// ── NORMALIZE
+function normalize(str) {
+  return str.toLowerCase().trim()
+    .replace(/[\u2018\u2019\u00b4`]/g,"'")
+    .replace(/\s+/g,' ');
+}
+
+function checkLA(idx, val) {
+  const n = normalize(val);
+  if (idx === 4) return n === "haven't" || n === "havent";
+  return n === laKeys[idx];
+}
+
+// ── HELPERS
+function g(id){ const el=document.getElementById(id); return el?el.value:''; }
+function getRadio(name){ const c=document.querySelector('input[name="'+name+'"]:checked'); return c?c.value:''; }
+
+// ── WORD COUNT
+function updateWordCount() {
+  const text = g('writingAnswer').trim();
+  const words = text ? text.split(/\s+/).filter(w=>w.length>0).length : 0;
+  const el = document.getElementById('wordCounter');
+  el.textContent = 'Palabras: ' + words + ' / mínimo 60';
+  el.className = 'word-counter ' + (words >= 60 ? 'green' : words >= 40 ? 'yellow' : 'red');
+}
+
+// ── RUBRIC
+function updateRubric() {
+  let total = 0;
+  ['rub1','rub2','rub3','rub4'].forEach(n => { total += parseFloat(getRadio(n))||0; });
+  document.getElementById('writingSubtotal').textContent = total.toFixed(1);
+}
+
+// ── TOGGLE
+function toggleEs(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+// ── PROGRESS
+function updateProgress() {
+  let answered = 0;
+  for (let i=1;i<=6;i++) if (g('la'+i).trim()) answered++;
+  for (let i=1;i<=6;i++) if (getRadio('lb'+i)) answered++;
+  for (let i=1;i<=6;i++) if (g('ra'+i)) answered++;
+  ['rb_a1','rb_a2','rb_a3','rb_a4','rb_a5'].forEach(id=>{ const el=document.getElementById(id); if(el&&el.value.trim()) answered++; });
+  if (g('writingAnswer').trim()) answered++;
+  ['rub1','rub2','rub3','rub4'].forEach(n=>{ if(getRadio(n)) answered++; });
+  const pct = Math.round((answered/TOTAL_QUESTIONS)*100);
+  const fill = document.getElementById('progressFill');
+  fill.style.width = pct+'%';
+  fill.className = 'progress-fill' + (answered===TOTAL_QUESTIONS?' complete':'');
+  document.getElementById('progressLabel').textContent = answered===TOTAL_QUESTIONS
+    ? '✅ Todas las preguntas respondidas'
+    : answered+' de '+TOTAL_QUESTIONS+' preguntas respondidas';
+  return answered;
+}
+
+// ── SAVE
+function saveAll() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    const data = { studentName:g('studentName') };
+    for(let i=1;i<=6;i++) data['la'+i]=g('la'+i);
+    for(let i=1;i<=6;i++) data['lb'+i]=getRadio('lb'+i);
+    for(let i=1;i<=6;i++) data['ra'+i]=g('ra'+i);
+    ['rb_a1','rb_a2','rb_a3','rb_a4','rb_a5'].forEach(id=>{ data[id]=g(id); });
+    data.writingAnswer = g('writingAnswer');
+    ['rub1','rub2','rub3','rub4'].forEach(n=>{ data[n]=getRadio(n); });
+    ['rb_q1','rb_q2','rb_q3','rb_q4','rb_q5'].forEach(id=>{ data[id]=g(id); });
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+    flashToast();
+  }, 600);
+  checkForAnswers();
+  updateProgress();
+}
+
+function checkForAnswers() {
+  const raw = localStorage.getItem(SAVE_KEY);
+  document.getElementById('savedBanner').style.display = raw ? 'flex' : 'none';
+}
+
+function loadSaved() {
+  const raw = localStorage.getItem(SAVE_KEY);
+  if (!raw) return;
+  const d = JSON.parse(raw);
+  ['studentName','la1','la2','la3','la4','la5','la6',
+   'ra1','ra2','ra3','ra4','ra5','ra6',
+   'rb_a1','rb_a2','rb_a3','rb_a4','rb_a5',
+   'writingAnswer',
+   'rb_q1','rb_q2','rb_q3','rb_q4','rb_q5'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&d[id]!==undefined) el.value=d[id];
+  });
+  for(let i=1;i<=6;i++){
+    if(d['lb'+i]){
+      const r=document.querySelector('input[name="lb'+i+'"][value="'+d['lb'+i]+'"]');
+      if(r) r.checked=true;
+    }
+  }
+  ['rub1','rub2','rub3','rub4'].forEach(n=>{
+    if(d[n]){
+      const r=document.querySelector('input[name="'+n+'"][value="'+d[n]+'"]');
+      if(r) r.checked=true;
+    }
+  });
+  updateWordCount();
+  updateRubric();
+  updateSignature();
+  updateProgress();
+  checkForAnswers();
+}
+
+function clearAllAnswers() {
+  if (!confirm('¿Estás seguro de que quieres borrar todas las respuestas?')) return;
+  localStorage.removeItem(SAVE_KEY);
+  document.getElementById('savedBanner').style.display='none';
+  document.querySelectorAll('input[type=text],input[type=number],textarea,select').forEach(el=>{
+    if(el.type==='select-one') el.value='';
+    else el.value='';
+  });
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
+  updateWordCount(); updateRubric(); updateProgress();
+  document.getElementById('results').style.display='none';
+}
+
+function flashToast() {
+  const t=document.getElementById('saveToast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+// ── BLANK WARNING
+function checkBlanksAndCalculate() {
+  const blanks = [];
+  for(let i=1;i<=6;i++) if(!g('la'+i).trim()) blanks.push({label:'Listening A — Espacio '+(i),targetId:'la'+i});
+  for(let i=1;i<=6;i++) if(!getRadio('lb'+i)) blanks.push({label:'Listening B — Pregunta '+(i),targetId:'lb'+i+'a'});
+  for(let i=1;i<=6;i++) if(!g('ra'+i)) blanks.push({label:'Reading A — Definición '+(i),targetId:'ra'+i});
+  ['rb_a1','rb_a2','rb_a3','rb_a4','rb_a5'].forEach((id,idx)=>{
+    if(!g(id).trim()) blanks.push({label:'Reading B — Pregunta '+(idx+1),targetId:id});
+  });
+  if(!g('writingAnswer').trim()) blanks.push({label:'Writing — Carta de recomendación',targetId:'writingAnswer'});
+  if(!getRadio('rub1')||!getRadio('rub2')||!getRadio('rub3')||!getRadio('rub4'))
+    blanks.push({label:'Writing — Rúbrica (uno o más criterios sin seleccionar)',targetId:'writingAnswer'});
+
+  if(blanks.length===0){
+    document.getElementById('blankWarning').style.display='none';
+    calculateFinalGrade();
+    return;
+  }
+  const list=document.getElementById('blankList');
+  list.innerHTML='';
+  blanks.forEach(b=>{
+    const li=document.createElement('li');
+    const btn=document.createElement('button');
+    btn.className='blank-link';
+    btn.textContent=b.label;
+    btn.onclick=()=>{
+      const el=document.getElementById(b.targetId);
+      if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{el.focus();el.style.outline='2px solid #f59e0b';setTimeout(()=>el.style.outline='',2500);},400); }
+    };
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+  const w=document.getElementById('blankWarning');
+  w.style.display='block';
+  w.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── GRADE CALC
+function calcGrade(score,max){
+  const pct=(score/max)*100;
+  const g=pct<60?(1+(pct/60)*3):(4+((pct-60)/40)*3);
+  return Math.min(7,Math.max(1,Math.round(g*10)/10));
+}
+
+// ── MAIN CALCULATE
+function calculateFinalGrade() {
+  // Listening A
+  let laScore=0;
+  const laResults=[];
+  for(let i=1;i<=6;i++){
+    const val=g('la'+i);
+    const correct=checkLA(i-1,val);
+    if(correct) laScore++;
+    laResults.push({correct,userAnswer:val||'—',correctAnswer:laKeys[i-1],question:'Espacio '+i});
+  }
+  // Listening B
+  let lbScore=0;
+  const lbResults=[];
+  const lbQ=['How much cargo last year?','Vessels this year?','Storage area last year?','On-time delivery % this year?','International cargo %?','NOT mentioned as achievement?'];
+  for(let i=1;i<=6;i++){
+    const val=getRadio('lb'+i);
+    const correct=val===lbKeys[i-1];
+    if(correct) lbScore++;
+    const optMap=lbOptions['lb'+i];
+    lbResults.push({correct,userAnswer:val?(val+') '+optMap[val]):'—',correctAnswer:lbKeys[i-1]+') '+optMap[lbKeys[i-1]],question:lbQ[i-1]});
+  }
+  const autoListening=laScore+lbScore;
+
+  // Reading A
+  let raScore=0;
+  const raResults=[];
+  const raDefs=['Cold container for temperature control','Lightweight metal from salt flats (batteries)','Container without sides/roof for heavy cargo','Increase in company revenue/value','Mineral compound from Chile (fertilizers)','Products that expire or spoil quickly'];
+  for(let i=1;i<=6;i++){
+    const val=g('ra'+i);
+    const correct=val===raKeys[i-1];
+    if(correct) raScore++;
+    raResults.push({correct,userAnswer:val||'—',correctAnswer:raKeys[i-1],question:'Def. '+i+': '+raDefs[i-1]});
+  }
+
+  // Writing from rubric
+  let writingScore=0;
+  ['rub1','rub2','rub3','rub4'].forEach(n=>{ writingScore+=parseFloat(getRadio(n))||0; });
+
+  // Reading B (Gemini)
+  let rbScore=0;
+  if(geminiReviewDone){
+    ['rb_q1','rb_q2','rb_q3','rb_q4','rb_q5'].forEach(id=>{ rbScore+=parseFloat(g(id))||0; });
+  }
+  const totalReading=raScore+(geminiReviewDone?rbScore:0);
+  const totalScore=autoListening+totalReading+(geminiReviewDone?writingScore:0);
+
+  // Display scores
+  document.getElementById('listeningDisplay').textContent=autoListening+' / 12';
+  if(geminiReviewDone){
+    document.getElementById('readingDisplay').textContent=totalReading.toFixed(1)+' / 12';
+    document.getElementById('writingDisplay').textContent=writingScore.toFixed(1)+' / 12';
+    document.getElementById('totalDisplay').textContent=totalScore.toFixed(1)+' / 36';
+    const grade=calcGrade(totalScore,36);
+    const gradeColor=grade>=4?'#10b981':'#ef4444';
+    const gradeMsg=grade>=6?'🌟 ¡Excelente trabajo!':grade>=5?'💪 ¡Muy bien!':grade>=4?'👍 Aprobado/a':'📚 Sigue practicando';
+    document.getElementById('gradeDisplay').innerHTML=
+      '<div class="grade-number" style="color:'+gradeColor+'">'+grade.toFixed(1)+'</div>'+
+      '<div class="grade-label">Nota final (escala chilena — 60% = 4.0)</div>'+
+      '<div class="grade-msg">'+gradeMsg+'</div>';
+    document.getElementById('geminiBlock').style.display='none';
+  } else {
+    document.getElementById('readingDisplay').textContent=raScore+' / 6 (auto) + — / 6 pendiente';
+    document.getElementById('writingDisplay').textContent=writingScore.toFixed(1)+' / 12';
+    document.getElementById('totalDisplay').textContent='— / 36';
+    document.getElementById('gradeDisplay').innerHTML=
+      '<div style="font-size:2.5em;margin-bottom:8px">⏳</div>'+
+      '<div style="font-family:\'DM Serif Display\',serif;font-size:1.3em;color:#d97706">Nota pendiente</div>'+
+      '<div style="font-size:0.85em;color:#92400e;margin-top:6px;line-height:1.5">Completa la revisión con Gemini — Reading B — y haz clic en "Actualizar nota".</div>'+
+      '<div style="font-size:2em;color:#f59e0b;margin-top:10px;animation:bounce 1.2s infinite">↓</div>';
+  }
+
+  // Student name
+  const name=g('studentName').trim();
+  document.getElementById('resultsTitle').textContent=name?'📊 Resultados de: '+name:'📊 Resultados del Mock Test';
+
+  // Show results (ONLY calculateFinalGrade sets this)
+  document.getElementById('results').style.display='block';
+
+  // Summary dots
+  buildDots('listeningDots',[...laResults,...lbResults]);
+  buildDots('readingDots',raResults);
+
+  // Section messages
+  buildSectionMsg('listeningMsg',autoListening,12,buildListeningTips(laResults,lbResults,laScore,lbScore));
+  buildSectionMsg('readingMsg',raScore,6,buildReadingTips(raResults));
+
+  // Feedback
+  buildFeedback(laResults,lbResults,raResults);
+
+  document.getElementById('filterTabs').style.display='flex';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function updateWithGeminiScores() {
+  geminiReviewDone=true;
+  calculateFinalGrade();
+}
+
+// ── DOTS
+function buildDots(containerId,items){
+  const c=document.getElementById(containerId);
+  if(!c) return;
+  c.innerHTML=items.map((item,i)=>'<div class="dot '+(item.correct?'correct':'incorrect')+'" title="Ítem '+(i+1)+': '+(item.correct?'Correcto':'Incorrecto')+'"></div>').join('');
+}
+
+// ── SECTION MESSAGES
+function buildSectionMsg(sectionId,correct,total,tips){
+  const pct=correct/total;
+  let level,title,intro;
+  if(pct>=0.83){level='great';title='🌟 ¡Excelente!';intro=' Tu desempeño en esta sección fue sobresaliente.';}
+  else if(pct>=0.58){level='good';title='👍 Buen trabajo';intro=' Estás en el camino correcto. Revisa los siguientes puntos:';}
+  else{level='needswork';title='📚 Necesitas practicar más';intro=' Presta atención a las siguientes áreas:';}
+  const tipsHtml=tips.length?'<ul class="msg-tips">'+tips.map(t=>'<li>'+t+'</li>').join('')+'</ul>':'';
+  const el=document.getElementById(sectionId);
+  if(el) el.innerHTML='<div class="section-feedback-msg '+level+'"><strong>'+title+'</strong>'+intro+tipsHtml+'</div>';
+}
+
+function buildListeningTips(laR,lbR,laScore,lbScore){
+  const tips=[];
+  const laWrong=laR.filter(r=>!r.correct);
+  const lbWrong=lbR.filter(r=>!r.correct);
+  if(laWrong.some(r=>r.correctAnswer==="haven't"||r.correctAnswer==='been'))
+    tips.push('Practica las formas negativas y participios del presente perfecto: haven\'t / been.');
+  if(laWrong.some(r=>['learned','worked','completed'].includes(r.correctAnswer)))
+    tips.push('Repasa los verbos en pasado simple: learned, worked, completed.');
+  if(laWrong.some(r=>r.correctAnswer==='performance'))
+    tips.push('Revisa el vocabulario de evaluación profesional: performance, achievements, feedback.');
+  if(lbScore<4)
+    tips.push('Para el Listening B, practica reconocer cifras, porcentajes y estadísticas en inglés oral.');
+  if(tips.length===0) tips.push('¡Excelente comprensión auditiva! Sigue practicando con audios de contextos profesionales.');
+  return tips;
+}
+
+function buildReadingTips(raR){
+  const tips=[];
+  const wrong=raR.filter(r=>!r.correct);
+  if(wrong.some(r=>r.correctAnswer==='REEFER CONTAINER'||r.correctAnswer==='FLAT RACK CONTAINER'))
+    tips.push('Repasa los tipos de contenedores de carga: reefer container (frío), flat rack container (carga pesada/sobredimensionada).');
+  if(wrong.some(r=>r.correctAnswer==='LITHIUM'||r.correctAnswer==='SALTPETER'))
+    tips.push('Revisa el vocabulario de recursos minerales chilenos: lithium, saltpeter y sus usos.');
+  if(wrong.some(r=>r.correctAnswer==='PERISHABLE GOODS'||r.correctAnswer==='FINANCIAL GROWTH'))
+    tips.push('Practica el vocabulario de comercio exterior: perishable goods, financial growth.');
+  if(tips.length===0) tips.push('¡Excelente manejo del vocabulario COMEX!');
+  return tips;
+}
+
+// ── FEEDBACK
+function buildFeedback(laR,lbR,raR){
+  const container=document.getElementById('feedbackContainer');
+  let html='';
+
+  // Listening A
+  html+='<div class="feedback-part" data-section="listening">';
+  html+='<div class="feedback-part-header listening">🎧 Listening A — Gap Fill</div>';
+  const laLabels=['¿Cómo se siente sobre su performance?','¿Qué aprendió rápidamente?','¿Con quién trabajó bien?','¿Qué ha completado a tiempo?','¿Qué no reportó?','¿Cómo no ha sido?'];
+  laR.forEach((r,i)=>{
+    const cls='feedback-item '+(r.correct?'fb-correct':'fb-incorrect');
+    html+='<div class="'+cls+'">';
+    html+='<div class="fi-label"><span class="tag '+(r.correct?'correct-tag':'incorrect-tag')+'">'+(r.correct?'✅ Correcto':'❌ Incorrecto')+'</span> Espacio '+(i+1)+': '+laLabels[i]+'</div>';
+    html+='<div class="student-ans">Tu respuesta: <strong>'+escHtml(r.userAnswer)+'</strong></div>';
+    if(!r.correct) html+='<div class="correct-ans">Respuesta correcta: <strong>'+r.correctAnswer+'</strong></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // Listening B
+  html+='<div class="feedback-part" data-section="listening">';
+  html+='<div class="feedback-part-header listening">🎧 Listening B — Multiple Choice</div>';
+  lbR.forEach((r,i)=>{
+    const cls='feedback-item '+(r.correct?'fb-correct':'fb-incorrect');
+    html+='<div class="'+cls+'">';
+    html+='<div class="fi-label"><span class="tag '+(r.correct?'correct-tag':'incorrect-tag')+'">'+(r.correct?'✅ Correcto':'❌ Incorrecto')+'</span> Pregunta '+(i+1)+': '+escHtml(r.question)+'</div>';
+    html+='<div class="student-ans">Tu respuesta: <strong>'+escHtml(r.userAnswer)+'</strong></div>';
+    if(!r.correct) html+='<div class="correct-ans">Respuesta correcta: <strong>'+escHtml(r.correctAnswer)+'</strong></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // Section messages
+  html='<div id="listeningMsg"></div>'+html+'<div id="readingMsg"></div>';
+
+  // Reading A
+  let raHtml='<div class="feedback-part" data-section="reading">';
+  raHtml+='<div class="feedback-part-header reading">📖 Reading A — Vocabulary Matching</div>';
+  raR.forEach((r,i)=>{
+    const cls='feedback-item '+(r.correct?'fb-correct':'fb-incorrect');
+    raHtml+='<div class="'+cls+'">';
+    raHtml+='<div class="fi-label"><span class="tag '+(r.correct?'correct-tag':'incorrect-tag')+'">'+(r.correct?'✅ Correcto':'❌ Incorrecto')+'</span> Definición '+(i+1)+'</div>';
+    raHtml+='<div class="student-ans" style="font-size:0.85em;color:var(--muted);margin-bottom:4px;">'+escHtml(r.question)+'</div>';
+    raHtml+='<div class="student-ans">Tu respuesta: <strong>'+escHtml(r.userAnswer)+'</strong></div>';
+    if(!r.correct) raHtml+='<div class="correct-ans">Respuesta correcta: <strong>'+r.correctAnswer+'</strong></div>';
+    raHtml+='</div>';
+  });
+  raHtml+='</div>';
+
+  // Reading B (Gemini)
+  const rbQ=['How long has Camila worked in logistics?','What has Camila recently completed at the terminal?','What skill does Camila consider essential for a logistics leader?','Where is she going to represent Pacific Trade Terminal?','What two professional plans does she have?'];
+  const rbIds=['rb_a1','rb_a2','rb_a3','rb_a4','rb_a5'];
+  let rbHtml='<div class="feedback-part" data-section="reading">';
+  rbHtml+='<div class="feedback-part-header reading">📖 Reading B — Preguntas abiertas (Gemini)</div>';
+  rbQ.forEach((q,i)=>{
+    const ans=document.getElementById(rbIds[i])?document.getElementById(rbIds[i]).value.trim():'—';
+    rbHtml+='<div class="feedback-item">';
+    rbHtml+='<div class="fi-label"><span class="tag info-tag">🤖 Revisado por Gemini</span> Pregunta '+(i+1)+'</div>';
+    rbHtml+='<div style="font-size:0.85em;color:var(--muted);margin-bottom:4px;">'+escHtml(q)+'</div>';
+    rbHtml+='<div class="student-ans">Tu respuesta: <strong>'+escHtml(ans||'—')+'</strong></div>';
+    rbHtml+='</div>';
+  });
+  rbHtml+='</div>';
+
+  // Writing (Gemini)
+  let wrHtml='<div class="feedback-part" data-section="writing">';
+  wrHtml+='<div class="feedback-part-header writing">✍️ Writing — Carta de recomendación</div>';
+  wrHtml+='<div class="feedback-item">';
+  wrHtml+='<div class="fi-label"><span class="tag info-tag">🤖 Revisado por Gemini + Rúbrica</span></div>';
+  wrHtml+='<div class="student-ans">Consulta la rúbrica en la sección Writing para ver tu puntaje detallado por criterio.</div>';
+  wrHtml+='</div></div>';
+
+  container.innerHTML = html + raHtml + rbHtml + wrHtml;
+
+  // Re-inject section messages after building HTML
+  requestAnimationFrame(()=>{
+    buildSectionMsg('listeningMsg',
+      laR.filter(r=>r.correct).length+lbR.filter(r=>r.correct).length, 12,
+      buildListeningTips(laR,lbR,laR.filter(r=>r.correct).length,lbR.filter(r=>r.correct).length));
+    buildSectionMsg('readingMsg',
+      raR.filter(r=>r.correct).length, 6,
+      buildReadingTips(raR));
+  });
+}
+
+function escHtml(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── FILTER TABS
+function filterFeedback(type,evt){
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  if(evt&&evt.target) evt.target.classList.add('active');
+  const parts=document.querySelectorAll('.feedback-part');
+  const items=document.querySelectorAll('.feedback-item');
+  if(type==='correct'||type==='incorrect'){
+    parts.forEach(p=>p.style.display='block');
+    items.forEach(item=>{
+      const isC=item.classList.contains('fb-correct');
+      const isI=item.classList.contains('fb-incorrect');
+      const hasClass=isC||isI;
+      item.style.display=(!hasClass||(type==='correct'?isC:isI))?'':'none';
+    });
+    parts.forEach(p=>{
+      const visible=[...p.querySelectorAll('.feedback-item')].some(i=>i.style.display!=='none');
+      p.style.display=visible?'block':'none';
+    });
+  } else {
+    items.forEach(i=>i.style.display='');
+    parts.forEach(p=>{ p.style.display=(type==='all'||p.dataset.section===type)?'block':'none'; });
+  }
+}
+
+// ── GEMINI PROMPTS
+function copyForGemini(section){
+  let geminiText='';
+  if(section==='writing'){
+    const txt=g('writingAnswer').trim();
+    if(!txt){ document.getElementById('warnWriting').style.display='block'; return; }
+    document.getElementById('warnWriting').style.display='none';
+    geminiText=buildWritingPrompt(txt);
+  } else if(section==='readingB'){
+    geminiText=buildReadingBPrompt();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(geminiText).catch(()=>fallbackCopy(geminiText));
+  } else { fallbackCopy(geminiText); }
+  showGeminiModal();
+}
+
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  document.execCommand('copy'); document.body.removeChild(ta);
+}
+
+function showGeminiModal(){ document.getElementById('geminiModal').classList.add('active'); }
+function closeGeminiModal(){ document.getElementById('geminiModal').classList.remove('active'); }
+
+function buildWritingPrompt(studentText){
+return `Eres un profesor experto en inglés como lengua extranjera para nivel A2 (CEFR).
+
+Un estudiante de nivel A2 ha escrito la siguiente carta de recomendación en inglés.
+
+TAREA: El estudiante debía escribir una carta de recomendación para Valentina Torres, Export Coordinator en Apex Cargo Solutions, postulando a una promoción. Debía usar simple past para eventos con fecha específica y present perfect para eventos recientes sin fecha. Debía incluir al menos 6 palabras del vocabulario de comercio exterior. Mínimo 60 palabras.
+
+PERFIL DE VALENTINA TORRES (información disponible para el estudiante):
+- MARCH 2021: Joined Apex Cargo Solutions and organized the first international shipment of perishable goods to European markets. [simple past esperado]
+- JUNE 2022: Coordinated a flat rack container operation for machinery exports and completed the project on schedule and under budget. [simple past esperado]
+- NOVEMBER 2023: Received the "Best Employee of the Year" award for her meticulous work in export documentation. [simple past esperado]
+- RECENTLY: Has implemented a cost-effective and sustainable supply chain process that reduced operational costs by 20%. [present perfect esperado]
+- THIS YEAR: Has completed a training course in reefer container operations and cold chain logistics. [present perfect esperado]
+
+CARTA DEL ESTUDIANTE:
+"${studentText}"
+
+RÚBRICA DE EVALUACIÓN:
+1. Coherencia y extensión (máx. 4 pts): Totalmente Logrado (4): ≥60 palabras, coherente. Logrado (3.2): 50–59 palabras. Parcialmente Logrado (2.4): 30–49 palabras. Insuf. Logrado (1.2): 15–29 palabras. No Logrado (0): <15 palabras.
+2. Vocabulario (máx. 3 pts): Totalmente Logrado (3): ≥6 palabras del curso. Logrado (2.4): 5. Parcialmente (1.8): 4. Insuf. (0.9): 3. No Logrado (0): ≤2.
+3. Gramática (máx. 3 pts): Totalmente (3): máx. 1 error. Logrado (2.4): 2–3 errores. Parcialmente (1.8): 4–5. Insuf. (0.9): 6–7. No Logrado (0): ≥8.
+4. Ortografía (máx. 2 pts): Totalmente (2): máx. 2 errores. Logrado (1.6): 3–4. Parcialmente (1.2): 5–6. Insuf. (0.6): 7–8. No Logrado (0): ≥9.
+
+POR FAVOR ENTREGA (todo en español, errores en inglés):
+
+⚠️ ADVERTENCIA DE AUTENTICIDAD: ¿El texto muestra señales de uso de IA o traductor? Vocabulario demasiado avanzado, ausencia de errores típicos de español-hablantes, fluidez inusual, conectores avanzados.
+
+📝 COMENTARIO GENERAL: Evaluación global en 2–3 oraciones.
+
+📊 ANÁLISIS POR CRITERIO: Para cada criterio: nivel + puntaje + justificación. Verifica uso de simple past (fechas: 2021, 2022, 2023) y present perfect (RECENTLY, THIS YEAR).
+
+❌ ERRORES ESPECÍFICOS: Lista errores con corrección en inglés.
+
+💡 SUGERENCIAS DE MEJORA: 2–3 sugerencias concretas.
+
+🌟 MENSAJE DE CIERRE: Mensaje motivador breve.
+
+| Criterio | Puntaje sugerido | Máximo |
+|----------|-----------------|--------|
+| Coherencia y extensión | | 4 pts |
+| Vocabulario | | 3 pts |
+| Gramática | | 3 pts |
+| Ortografía | | 2 pts |
+| Total | | 12 pts |`;
+}
+
+function buildReadingBPrompt(){
+  const a1=g('rb_a1').trim()||'(sin respuesta)';
+  const a2=g('rb_a2').trim()||'(sin respuesta)';
+  const a3=g('rb_a3').trim()||'(sin respuesta)';
+  const a4=g('rb_a4').trim()||'(sin respuesta)';
+  const a5=g('rb_a5').trim()||'(sin respuesta)';
+return `Eres un profesor experto en inglés como lengua extranjera para nivel A2 (CEFR).
+
+Un estudiante de nivel A2 ha respondido preguntas abiertas sobre el siguiente texto:
+
+TEXTO LEÍDO: "Employee Spotlight" sobre Camila Rojas, Senior Logistics Coordinator en Pacific Trade Terminal.
+Información clave:
+- Ha trabajado 7 años en la industria logística.
+- Ha completado recientemente un proyecto para reducir el uso de papel en la documentación del terminal.
+- Quisiera mejorar sus habilidades de oratoria (public speaking skills).
+- Va a representar a Pacific Trade Terminal en una feria internacional de comercio en Singapur el próximo mes.
+- Sus dos planes profesionales: (1) asistir a la feria en Singapur, (2) comenzar un curso de certificación en supply chain management.
+
+SISTEMA DE PUNTAJE:
+- Preguntas de 1 pt: 1 pt completo / 0.5 pts parcial / 0 incorrecto
+- Pregunta de 2 pts: hasta 2 pts (1 pt por idea completa, 0.5 pts por idea incompleta)
+
+PREGUNTA 1 (máx. 1 pt): How long has Camila worked in the logistics industry?
+Respuesta modelo: She has worked in the logistics industry for seven years.
+Parciales aceptables: "Seven years" / "For seven years" / "7 years"
+Respuesta del estudiante: "${a1}"
+
+PREGUNTA 2 (máx. 1 pt): What has Camila recently completed at the terminal?
+Respuesta modelo: She has recently completed a project to reduce the terminal's use of paper documentation.
+Parciales aceptables: "Paper documentation project" / "Reduce paper" / mención del proyecto sin verbo
+Respuesta del estudiante: "${a2}"
+
+PREGUNTA 3 (máx. 1 pt): What skill does Camila consider essential for a logistics leader?
+Respuesta modelo: She considers/thinks communication is an essential skill for a leader in the logistics industry.
+Parciales aceptables: "Communication" / "Communication skills" / idea correcta sin verbo principal
+Respuesta del estudiante: "${a3}"
+
+PREGUNTA 4 (máx. 1 pt): Where is Camila going to represent Pacific Trade Terminal next month?
+Respuesta modelo: She is going to represent Pacific Trade Terminal at an international trade fair in Singapore.
+Parciales: "Singapore" / "A trade fair in Singapore"
+Respuesta del estudiante: "${a4}"
+
+PREGUNTA 5 (máx. 2 pts): What two professional plans does Camila have for the future?
+Respuesta modelo: Idea 1: She is going to attend an international trade fair in Singapore. Idea 2: She is going to start a certification course in supply chain management.
+Parciales: Mención de evento/actividad sin "going to" → 0.5 pts por idea.
+Respuesta del estudiante: "${a5}"
+
+POR FAVOR ENTREGA (todo en español, ejemplos en inglés):
+Para cada pregunta: análisis breve + puntaje sugerido + justificación. Si es parcial: explica qué faltó.
+
+Al final:
+P1: ___ / 1 | P2: ___ / 1 | P3: ___ / 1 | P4: ___ / 1 | P5: ___ / 2 | Total: ___ / 6`;
+}
+
+// ── INIT
+window.onload = function(){
+  loadSaved();
+  updateWordCount();
+  updateSignature();
+  checkForAnswers();
+  updateProgress();
+};
+</script>
+</body>
+</html>
